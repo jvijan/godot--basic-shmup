@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://buhn20naeh2iu"]
+
+[ext_resource type="Texture2D" uid="uid://chwxjikbojsfl" path="res://Art Stuff/Sprites/oshiro_2.png" id="1_g3jc2"]
+[ext_resource type="Script" uid="uid://iib2qi00qydc" path="res://Scripts/enemy.gd" id="1_jki4s"]
+[ext_resource type="Texture2D" uid="uid://qr7o205ndekv" path="res://Art Stuff/Sprites/oshiro_boss.png" id="2_jki4s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_075qi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_g3jc2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_jki4s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3jc2"]
+size = Vector2(18, 40)
+
+[node name="oshiro" type="Area2D"]
+script = ExtResource("1_jki4s")
+speed = 200.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(-2, 2)
+sprite_frames = SubResource("SpriteFrames_075qi")
+frame = 1
+frame_progress = 0.025139133
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_g3jc2")

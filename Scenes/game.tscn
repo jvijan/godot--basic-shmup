@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmg5xk3fh6yv1"]
+
+[ext_resource type="Texture2D" uid="uid://dr51syfldgojs" path="res://Art Stuff/Background/bg0.png" id="1_ebmjs"]
+[ext_resource type="PackedScene" uid="uid://dpg7f6sk3d1ya" path="res://Prefabs/player.tscn" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://buhn20naeh2iu" path="res://Prefabs/oshiro.tscn" id="2_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://cqpnonrye5w8s" path="res://Prefabs/seeker.tscn" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://csn6kyjdi7rky" path="res://Prefabs/badeline.tscn" id="5_wowpa"]
+[ext_resource type="PackedScene" uid="uid://w5kuvxdqcta3" path="res://Scenes/bgm.tscn" id="6_i6g32"]
+
+[node name="game" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576, 323)
+scale = Vector2(3.6, 3.6111112)
+texture = ExtResource("1_ebmjs")
+
+[node name="oshiro" parent="." instance=ExtResource("2_wrm1d")]
+position = Vector2(1032, 104)
+scale = Vector2(1.5, 1.5)
+
+[node name="Player" parent="." instance=ExtResource("2_qxrlw")]
+position = Vector2(56, 296)
+scale = Vector2(3.6, 3.6111112)
+speed = 250.0
+
+[node name="seeker" parent="." instance=ExtResource("4_3dryh")]
+position = Vector2(1064, 512)
+scale = Vector2(1.5, 1.5)
+speed = 100.0
+
+[node name="badeline" parent="." instance=ExtResource("5_wowpa")]
+position = Vector2(1032, 288)
+scale = Vector2(1.5, 1.5)
+speed = 150.0
+
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("6_i6g32")]
+volume_db = -5.0

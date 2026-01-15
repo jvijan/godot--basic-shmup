@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqpnonrye5w8s"]
+
+[ext_resource type="Script" uid="uid://iib2qi00qydc" path="res://Scripts/enemy.gd" id="1_ykic4"]
+[ext_resource type="Texture2D" uid="uid://cy76qi1cajmq0" path="res://Art Stuff/Sprites/seeker2.png" id="2_ykic4"]
+[ext_resource type="Texture2D" uid="uid://cuwifflvyux13" path="res://Art Stuff/Sprites/seeker.png" id="3_rbjit"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_075qi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ykic4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rbjit")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3jc2"]
+size = Vector2(18, 40)
+
+[node name="seeker" type="Area2D"]
+script = ExtResource("1_ykic4")
+speed = 200.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(-2, 2)
+sprite_frames = SubResource("SpriteFrames_075qi")
+frame_progress = 0.025139133
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_g3jc2")
