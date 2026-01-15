@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cqfxyyo2rn60x"
+path="res://.godot/imported/crystaltheo_throw_01.wav-21d5c07bb039b99bc0e26de74c39d6fe.sample"
+
+[deps]
+
+source_file="res://Art Stuff/Audio/crystaltheo_throw_01.wav"
+dest_files=["res://.godot/imported/crystaltheo_throw_01.wav-21d5c07bb039b99bc0e26de74c39d6fe.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
