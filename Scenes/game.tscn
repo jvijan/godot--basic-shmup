@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmg5xk3fh6yv1"]
+[gd_scene load_steps=8 format=3 uid="uid://cmg5xk3fh6yv1"]
 
 [ext_resource type="Texture2D" uid="uid://dr51syfldgojs" path="res://Art Stuff/Background/bg0.png" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://dpg7f6sk3d1ya" path="res://Prefabs/player.tscn" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://buhn20naeh2iu" path="res://Prefabs/oshiro.tscn" id="2_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://bb0mn2gny6ceo" path="res://Prefabs/theoCrystal.tscn" id="4_1l0tm"]
 [ext_resource type="PackedScene" uid="uid://cqpnonrye5w8s" path="res://Prefabs/seeker.tscn" id="4_3dryh"]
 [ext_resource type="PackedScene" uid="uid://csn6kyjdi7rky" path="res://Prefabs/badeline.tscn" id="5_wowpa"]
 [ext_resource type="PackedScene" uid="uid://w5kuvxdqcta3" path="res://Scenes/bgm.tscn" id="6_i6g32"]
@@ -22,6 +23,8 @@ scale = Vector2(1.5, 1.5)
 position = Vector2(56, 296)
 scale = Vector2(3.6, 3.6111112)
 speed = 250.0
+actorScene = ExtResource("4_1l0tm")
+shootSpawn = Vector2(10, 0)
 
 [node name="seeker" parent="." instance=ExtResource("4_3dryh")]
 position = Vector2(1064, 512)
