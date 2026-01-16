@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqgm7vlq2yrfb"
-path="res://.godot/imported/gameOver_cropped_processed_by_imagy(1).png-2f02bd91bdeeaf491eabb47d7cd464b5.ctex"
+uid="uid://k1wgjsjgqkfe"
+path="res://.godot/imported/victoryScreen.png-e00891c0489c5e2891e94c191bb6c720.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art Stuff/Background/gameOver_cropped_processed_by_imagy(1).png"
-dest_files=["res://.godot/imported/gameOver_cropped_processed_by_imagy(1).png-2f02bd91bdeeaf491eabb47d7cd464b5.ctex"]
+source_file="res://Art Stuff/Background/victoryScreen.png"
+dest_files=["res://.godot/imported/victoryScreen.png-e00891c0489c5e2891e94c191bb6c720.ctex"]
 
 [params]
 
