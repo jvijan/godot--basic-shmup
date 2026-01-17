@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqpnonrye5w8s"]
+[gd_scene load_steps=7 format=3 uid="uid://cqpnonrye5w8s"]
 
 [ext_resource type="Script" uid="uid://iib2qi00qydc" path="res://Scripts/enemy.gd" id="1_ykic4"]
 [ext_resource type="Texture2D" uid="uid://cy76qi1cajmq0" path="res://Art Stuff/Sprites/seeker2.png" id="2_ykic4"]
 [ext_resource type="Texture2D" uid="uid://cuwifflvyux13" path="res://Art Stuff/Sprites/seeker.png" id="3_rbjit"]
+[ext_resource type="AudioStream" uid="uid://d4crqsmjt1sh2" path="res://Art Stuff/Audio/enemyDies.wav" id="4_rbjit"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_075qi"]
 animations = [{
@@ -21,10 +22,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ykic4"]
 radius = 16.0
 
-[node name="seeker" type="Area2D"]
+[node name="Seeker" type="Area2D" node_paths=PackedStringArray("deathSfx")]
+scale = Vector2(1.25, 1.25)
 script = ExtResource("1_ykic4")
 speed = 250.0
+aimAtPlayer = true
 health = 5
+deathSfx = NodePath("deathSfx")
+score = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 3.1415927
@@ -34,5 +39,8 @@ frame_progress = 0.025139133
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ykic4")
+
+[node name="deathSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_rbjit")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

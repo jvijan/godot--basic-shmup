@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://csn6kyjdi7rky"]
+[gd_scene load_steps=6 format=3 uid="uid://csn6kyjdi7rky"]
 
 [ext_resource type="Script" uid="uid://iib2qi00qydc" path="res://Scripts/enemy.gd" id="1_mehh2"]
 [ext_resource type="Texture2D" uid="uid://bm7ls7vpbceuv" path="res://Art Stuff/Sprites/badeline2.png" id="2_mehh2"]
 [ext_resource type="Texture2D" uid="uid://c643247b7haxe" path="res://Art Stuff/Sprites/badeline.png" id="3_5sv3v"]
+[ext_resource type="AudioStream" uid="uid://d4crqsmjt1sh2" path="res://Art Stuff/Audio/enemyDies.wav" id="4_5sv3v"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_075qi"]
 animations = [{
@@ -18,10 +19,13 @@ animations = [{
 "speed": 3.0
 }]
 
-[node name="Badeline" type="Area2D"]
+[node name="Badeline" type="Area2D" node_paths=PackedStringArray("deathSfx")]
+scale = Vector2(2, 2)
 script = ExtResource("1_mehh2")
 speed = 150.0
 health = 10
+deathSfx = NodePath("deathSfx")
+score = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 3.1415927
@@ -32,3 +36,8 @@ frame_progress = 0.36476216
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-5, 32, 1, 31, 3, 21, 8, 24, 9, 21, 15, 3, 1, -3, -8, 4, -6, 11, -6, 18, -10, 20, -9, 24, -6, 22)
+
+[node name="deathSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_5sv3v")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,44 +1,187 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmg5xk3fh6yv1"]
+[gd_scene load_steps=19 format=3 uid="uid://cmg5xk3fh6yv1"]
 
 [ext_resource type="Texture2D" uid="uid://dr51syfldgojs" path="res://Art Stuff/Background/bg0.png" id="1_ebmjs"]
+[ext_resource type="Script" uid="uid://rdl3kfmdj1l7" path="res://Scripts/gameStart.gd" id="1_ewbju"]
 [ext_resource type="PackedScene" uid="uid://dpg7f6sk3d1ya" path="res://Prefabs/player.tscn" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://buhn20naeh2iu" path="res://Prefabs/oshiro.tscn" id="2_wrm1d"]
-[ext_resource type="PackedScene" uid="uid://bb0mn2gny6ceo" path="res://Prefabs/theoCrystal.tscn" id="4_1l0tm"]
 [ext_resource type="PackedScene" uid="uid://cqpnonrye5w8s" path="res://Prefabs/seeker.tscn" id="4_3dryh"]
 [ext_resource type="PackedScene" uid="uid://csn6kyjdi7rky" path="res://Prefabs/badeline.tscn" id="5_wowpa"]
 [ext_resource type="PackedScene" uid="uid://w5kuvxdqcta3" path="res://Scenes/bgm.tscn" id="6_i6g32"]
+[ext_resource type="Script" uid="uid://dsnq8b3uqles2" path="res://Scripts/healthUi.gd" id="7_1l0tm"]
+[ext_resource type="Script" uid="uid://dnwgrcx4vcmai" path="res://Scripts/bgm.gd" id="7_ldgsr"]
+[ext_resource type="Texture2D" uid="uid://c5p4o75dood73" path="res://Art Stuff/Sprites/heart.png" id="8_v158k"]
+[ext_resource type="Script" uid="uid://de2tn7uroh6h2" path="res://Scripts/scoreUi.gd" id="9_h4fw4"]
+[ext_resource type="Script" uid="uid://dpghack81034y" path="res://Scripts/gameFinishedHandler.gd" id="11_nb51f"]
+[ext_resource type="Texture2D" uid="uid://k1wgjsjgqkfe" path="res://Art Stuff/Background/victoryScreen.png" id="11_rku1e"]
+[ext_resource type="FontFile" uid="uid://byd6lmq1u0mdk" path="res://Art Stuff/Fonts/font.otf" id="12_rfjv2"]
+[ext_resource type="Texture2D" uid="uid://csd1qhiyq0c51" path="res://Art Stuff/Background/gameOver.png" id="13_rfjv2"]
+[ext_resource type="AudioStream" uid="uid://di1e6mb6fkjnr" path="res://Art Stuff/Audio/victory_sfx.wav" id="15_nnt18"]
+[ext_resource type="AudioStream" uid="uid://b1q77awnyhn45" path="res://Art Stuff/Audio/start_sfx.wav" id="17_85qyi"]
+[ext_resource type="Script" uid="uid://kiahxlvtob06" path="res://Scripts/enemySpawner.gd" id="18_85qyi"]
 
-[node name="game" type="Node2D"]
+[node name="game" type="Node2D" node_paths=PackedStringArray("startSfx", "mainMusic")]
+script = ExtResource("1_ewbju")
+startSfx = NodePath("startSfx")
+mainMusic = NodePath("MainMusic")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(6, 6)
 texture = ExtResource("1_ebmjs")
 centered = false
 
-[node name="oshiro" parent="." instance=ExtResource("2_wrm1d")]
-position = Vector2(1649, 159)
-scale = Vector2(1.5, 1.5)
-speed = 200.0
-
 [node name="Player" parent="." instance=ExtResource("2_qxrlw")]
 position = Vector2(162, 546)
 scale = Vector2(3.6, 3.6111112)
 speed = 250.0
-actorScene = ExtResource("4_1l0tm")
-shootSpawn = Vector2(10, 0)
-
-[node name="seeker" parent="." node_paths=PackedStringArray("playerPos") instance=ExtResource("4_3dryh")]
-position = Vector2(1659, 784)
-scale = Vector2(1.5, 1.5)
-collision_mask = 3
-speed = 250.0
-aimAtPlayer = true
-playerPos = NodePath("../Player")
-
-[node name="badeline" parent="." instance=ExtResource("5_wowpa")]
-position = Vector2(1617, 463)
-scale = Vector2(1.5, 1.5)
-speed = 150.0
+scoreToWin = 20
 
 [node name="MainMusic" parent="." instance=ExtResource("6_i6g32")]
 volume_db = -5.0
+autoplay = false
+parameters/looping = false
+script = ExtResource("7_ldgsr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartUI" type="HBoxContainer" parent="CanvasLayer"]
+offset_left = 40.0
+offset_right = 708.0
+offset_bottom = 122.0
+script = ExtResource("7_1l0tm")
+heartImage = ExtResource("8_v158k")
+space = 10
+heartSize = Vector2(60, 60)
+
+[node name="ScoreUI" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -201.0
+offset_top = 28.0
+offset_bottom = 98.0
+grow_horizontal = 0
+theme_override_font_sizes/normal_font_size = 40
+text = "Score: 0"
+script = ExtResource("9_h4fw4")
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("victoryScreen", "lossScreen", "winSfx")]
+script = ExtResource("11_nb51f")
+victoryScreen = NodePath("Victory")
+lossScreen = NodePath("Game Over")
+winSfx = NodePath("../winSfx")
+
+[node name="Victory" type="Sprite2D" parent="Node"]
+visible = false
+texture = ExtResource("11_rku1e")
+centered = false
+
+[node name="VictoryText" type="RichTextLabel" parent="Node/Victory"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -254.0
+offset_top = 23.0
+offset_right = 337.0
+offset_bottom = 302.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("12_rfjv2")
+theme_override_font_sizes/normal_font_size = 150
+text = "Victory"
+
+[node name="Game Over" type="Sprite2D" parent="Node"]
+visible = false
+texture = ExtResource("13_rfjv2")
+centered = false
+
+[node name="Lost Text" type="RichTextLabel" parent="Node/Game Over"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -533.0
+offset_top = 70.0
+offset_right = 414.0
+offset_bottom = 603.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("12_rfjv2")
+theme_override_font_sizes/normal_font_size = 150
+text = "Game Over"
+
+[node name="winSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_nnt18")
+
+[node name="startSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("17_85qyi")
+
+[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("spawnPoints", "player")]
+position = Vector2(1, 0)
+script = ExtResource("18_85qyi")
+enemyScenes = Array[PackedScene]([ExtResource("4_3dryh"), ExtResource("4_3dryh"), ExtResource("4_3dryh"), ExtResource("2_wrm1d"), ExtResource("2_wrm1d"), ExtResource("5_wowpa"), ExtResource("4_3dryh"), ExtResource("4_3dryh"), ExtResource("2_wrm1d")])
+spawnInterval = 1.0
+spawnPoints = [NodePath("Marker2D7"), NodePath("Marker2D8"), NodePath("Marker2D9"), NodePath("Marker2D10"), NodePath("Marker2D11"), NodePath("Marker2D12"), NodePath("Marker2D13"), NodePath("Marker2D14"), NodePath("Marker2D15"), NodePath("Marker2D16"), NodePath("Marker2D17"), NodePath("Marker2D18"), NodePath("Marker2D6"), NodePath("Marker2D5"), NodePath("Marker2D4"), NodePath("Marker2D3"), NodePath("Marker2D"), NodePath("Marker2D2")]
+player = NodePath("../Player")
+
+[node name="Marker2D7" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(1990, 60)
+
+[node name="Marker2D8" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(1973, 727)
+
+[node name="Marker2D9" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2034, 660)
+
+[node name="Marker2D10" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2062, 777)
+
+[node name="Marker2D11" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2001, 816)
+
+[node name="Marker2D12" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2051, 844)
+
+[node name="Marker2D13" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2018, 905)
+
+[node name="Marker2D14" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2001, 966)
+
+[node name="Marker2D15" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2057, 994)
+
+[node name="Marker2D16" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2090, 938)
+
+[node name="Marker2D17" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2062, 816)
+
+[node name="Marker2D18" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(1973, 310)
+
+[node name="Marker2D6" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(1980, 161)
+
+[node name="Marker2D5" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(1976, 234)
+
+[node name="Marker2D4" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2046, 339)
+
+[node name="Marker2D3" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2007, 412)
+
+[node name="Marker2D" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(1963, 523)
+
+[node name="Marker2D2" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(2013, 589)
+
+[connection signal="gameFinished" from="Player" to="MainMusic" method="_on_player_game_finished"]
+[connection signal="gameFinished" from="Player" to="CanvasLayer/HeartUI" method="_on_player_game_finished"]
+[connection signal="gameFinished" from="Player" to="CanvasLayer/ScoreUI" method="_on_player_game_finished"]
+[connection signal="gameFinished" from="Player" to="Node" method="_on_player_game_finished"]
+[connection signal="gameFinished" from="Player" to="EnemySpawner" method="_on_player_game_finished"]
+[connection signal="healthChange" from="Player" to="CanvasLayer/HeartUI" method="_on_player_health_change"]
+[connection signal="scoreChange" from="Player" to="CanvasLayer/ScoreUI" method="_on_player_score_change"]

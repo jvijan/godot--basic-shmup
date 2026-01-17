@@ -2,11 +2,17 @@ extends Area2D
 
 class_name Enemy
 
+signal enemyDied(_score: int)
+
 @export var speed: float
 @export var aimAtPlayer: bool = false
-@export var playerPos: CharacterBody2D
+@export var playerPos: Vector2
 @export var health: int
+@export var deathSfx: AudioStreamPlayer2D
+@export var score: int
+
 @onready var animatedSprite = $AnimatedSprite2D
+
 
 var moveDir: Vector2
 
@@ -14,7 +20,7 @@ var moveDir: Vector2
 func _ready() -> void:
 	animatedSprite.play("default")
 	if aimAtPlayer:
-		moveDir = (playerPos.global_position - global_position).normalized()
+		moveDir = (playerPos - global_position).normalized()
 	else:
 		moveDir = Vector2.LEFT
 
@@ -23,12 +29,26 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	translate(moveDir * speed * delta)
 	if health <= 0:
-		queue_free()
-		# Send signal to increase score
+		die()
+
+
+func die() -> void:
+	animatedSprite.visible = false
+	set_process(false)
+	collision_layer = 0
+	collision_mask = 0
+	enemyDied.emit(score)
+	if deathSfx:
+		deathSfx.play()
+		await deathSfx.finished
+	queue_free()
 	
 
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Projectile:
 		health -= 1
-		area.hit()
+
+
+func _on_player_game_finished(win: bool) -> void:
+	queue_free()

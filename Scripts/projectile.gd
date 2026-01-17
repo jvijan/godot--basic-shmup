@@ -10,5 +10,6 @@ func _process(delta: float) -> void:
 	translate(Vector2.RIGHT * delta * speed)
 
 
-func hit() -> void:
-	queue_free()
+func _on_area_entered(area: Area2D) -> void:
+	if area is Enemy:
+		queue_free()

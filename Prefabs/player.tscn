@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpg7f6sk3d1ya"]
+[gd_scene load_steps=12 format=3 uid="uid://dpg7f6sk3d1ya"]
 
 [ext_resource type="Script" uid="uid://boltsnnbffyor" path="res://Scripts/player.gd" id="1_5wxv7"]
 [ext_resource type="Texture2D" uid="uid://j3vsl3w334a" path="res://Art Stuff/Sprites/madeline.png" id="1_y6xdh"]
+[ext_resource type="PackedScene" uid="uid://bb0mn2gny6ceo" path="res://Prefabs/theoCrystal.tscn" id="2_hck1p"]
 [ext_resource type="Texture2D" uid="uid://caonieyy3w165" path="res://Art Stuff/Sprites/madeline2.png" id="3_y5hcb"]
 [ext_resource type="AudioStream" uid="uid://cqfxyyo2rn60x" path="res://Art Stuff/Audio/crystaltheo_throw_01.wav" id="4_2nftw"]
+[ext_resource type="AudioStream" uid="uid://34flbise7ms6" path="res://Art Stuff/Audio/playerHit.wav" id="6_juxdh"]
+[ext_resource type="AudioStream" uid="uid://dg3tj3c6tcg72" path="res://Art Stuff/Audio/playerDeath.wav" id="7_juxdh"]
+[ext_resource type="AudioStream" uid="uid://ddl347tbkny7l" path="res://Art Stuff/Audio/lightningstrikelose.wav" id="8_4qbli"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2nftw"]
 animations = [{
@@ -22,9 +26,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wxv7"]
 size = Vector2(9, 16)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("shootSfx")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2nftw"]
+size = Vector2(8, 16)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("shootSfx", "hitSfx", "deathSfx", "gameOver")]
 script = ExtResource("1_5wxv7")
+actorScene = ExtResource("2_hck1p")
+shootSpawn = Vector2(10, 0)
 shootSfx = NodePath("shootSfx")
+hitSfx = NodePath("hitSfx")
+deathSfx = NodePath("deathSfx")
+gameOver = NodePath("gameOver")
+health = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2nftw")
@@ -38,3 +51,19 @@ shape = SubResource("RectangleShape2D_5wxv7")
 [node name="shootSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_2nftw")
 volume_db = -5.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2nftw")
+
+[node name="hitSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_juxdh")
+
+[node name="deathSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_juxdh")
+
+[node name="gameOver" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_4qbli")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
