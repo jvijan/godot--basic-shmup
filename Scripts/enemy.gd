@@ -28,6 +28,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	translate(moveDir * speed * delta)
+	if global_position.x < -50:
+		queue_free()
 	if health <= 0:
 		die()
 
