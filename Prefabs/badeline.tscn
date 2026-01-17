@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://csn6kyjdi7rky"]
+[gd_scene load_steps=5 format=3 uid="uid://csn6kyjdi7rky"]
 
 [ext_resource type="Script" uid="uid://iib2qi00qydc" path="res://Scripts/enemy.gd" id="1_mehh2"]
 [ext_resource type="Texture2D" uid="uid://bm7ls7vpbceuv" path="res://Art Stuff/Sprites/badeline2.png" id="2_mehh2"]
@@ -18,19 +18,17 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3jc2"]
-size = Vector2(18, 40)
-
-[node name="badeline" type="Area2D"]
+[node name="Badeline" type="Area2D"]
 script = ExtResource("1_mehh2")
-speed = 200.0
+speed = 150.0
+health = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(-2, 2)
+rotation = 3.1415927
+scale = Vector2(2, -2)
 sprite_frames = SubResource("SpriteFrames_075qi")
 frame = 1
 frame_progress = 0.36476216
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 4)
-shape = SubResource("RectangleShape2D_g3jc2")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-5, 32, 1, 31, 3, 21, 8, 24, 9, 21, 15, 3, 1, -3, -8, 4, -6, 11, -6, 18, -10, 20, -9, 24, -6, 22)

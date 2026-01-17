@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpg7f6sk3d1ya"]
+[gd_scene load_steps=7 format=3 uid="uid://dpg7f6sk3d1ya"]
 
 [ext_resource type="Script" uid="uid://boltsnnbffyor" path="res://Scripts/player.gd" id="1_5wxv7"]
 [ext_resource type="Texture2D" uid="uid://j3vsl3w334a" path="res://Art Stuff/Sprites/madeline.png" id="1_y6xdh"]
 [ext_resource type="Texture2D" uid="uid://caonieyy3w165" path="res://Art Stuff/Sprites/madeline2.png" id="3_y5hcb"]
+[ext_resource type="AudioStream" uid="uid://cqfxyyo2rn60x" path="res://Art Stuff/Audio/crystaltheo_throw_01.wav" id="4_2nftw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2nftw"]
 animations = [{
@@ -21,9 +22,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wxv7"]
 size = Vector2(9, 16)
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("shootSfx")]
 script = ExtResource("1_5wxv7")
-speed = 300.0
+shootSfx = NodePath("shootSfx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2nftw")
@@ -33,3 +34,7 @@ offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5wxv7")
+
+[node name="shootSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2nftw")
+volume_db = -5.0

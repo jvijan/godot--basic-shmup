@@ -11,30 +11,34 @@
 [node name="game" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(576, 323)
-scale = Vector2(3.6, 3.6111112)
+scale = Vector2(6, 6)
 texture = ExtResource("1_ebmjs")
+centered = false
 
 [node name="oshiro" parent="." instance=ExtResource("2_wrm1d")]
-position = Vector2(1032, 104)
+position = Vector2(1649, 159)
 scale = Vector2(1.5, 1.5)
+speed = 200.0
 
 [node name="Player" parent="." instance=ExtResource("2_qxrlw")]
-position = Vector2(56, 296)
+position = Vector2(162, 546)
 scale = Vector2(3.6, 3.6111112)
 speed = 250.0
 actorScene = ExtResource("4_1l0tm")
 shootSpawn = Vector2(10, 0)
 
-[node name="seeker" parent="." instance=ExtResource("4_3dryh")]
-position = Vector2(1064, 512)
+[node name="seeker" parent="." node_paths=PackedStringArray("playerPos") instance=ExtResource("4_3dryh")]
+position = Vector2(1659, 784)
 scale = Vector2(1.5, 1.5)
-speed = 100.0
+collision_mask = 3
+speed = 250.0
+aimAtPlayer = true
+playerPos = NodePath("../Player")
 
 [node name="badeline" parent="." instance=ExtResource("5_wowpa")]
-position = Vector2(1032, 288)
+position = Vector2(1617, 463)
 scale = Vector2(1.5, 1.5)
 speed = 150.0
 
-[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("6_i6g32")]
+[node name="MainMusic" parent="." instance=ExtResource("6_i6g32")]
 volume_db = -5.0
